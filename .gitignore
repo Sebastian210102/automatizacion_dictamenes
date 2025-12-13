@@ -1,0 +1,16 @@
+#Ambiente virtual
+
+dictamenes
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Archivos sensibles o generados
+.env
+
+# PDFs de entrada (no datos reales)
+input/*.pdf
+
+# Resultados y errores
+output/*
+errors/*
