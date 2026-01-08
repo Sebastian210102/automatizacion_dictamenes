@@ -1,26 +1,36 @@
-import pdfplumber
 from pathlib import Path
+import sys 
+
 
 INPUT_FOLDER = Path("input")
+REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf", "FOR_28.xlsx", 
+                  "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
 
-def leer_pdf(ruta_pdf):
-    texto_completo = ""
 
-    with pdfplumber.open(ruta_pdf) as pdf:
-        for pagina in pdf.pages:
-            texto = pagina.extract_text()
-            if texto:
-                texto_completo += texto + "\n"
 
-    return texto_completo
+def verificacion_carpeta(directorio):
 
+    if directorio.exists() and directorio.is_dir():
+        print("La carpeta input existe, por lo que se puede seguir")
+    else:
+        print("Verificar que la carpeta existe o esta mal escrita")
+        sys.exit(1)
+
+
+def verificacion_documento(documento):
+    if documento.exists() and documento.is_file():
+        print(f'Documento "{documento}" cargado correctamente')
+    else:
+        print(f'Documento "{documento}" no se encuentra')
+        sys.exit(1)
 
 def main():
-    for archivo in INPUT_FOLDER.iterdir():
-        if archivo.suffix.lower() == ".pdf":
-            texto = leer_pdf(archivo)
-            print("=== TEXTO EXTRAÍDO ===")
-            print(texto)
+
+    verificacion_carpeta(INPUT_FOLDER)
+
+    for file in REQUIRED_FILES:
+        file_path = Path(f"{INPUT_FOLDER}/{file}")
+        verificacion_documento(file_path)
 
 
 if __name__ == "__main__":

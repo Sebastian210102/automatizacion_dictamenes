@@ -9,7 +9,7 @@ __pycache__/
 .env
 
 # PDFs de entrada (no datos reales)
-input/*.pdf
+input/*
 Documentacion/*
 
 # Resultados y errores
