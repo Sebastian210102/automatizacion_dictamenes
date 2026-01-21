@@ -1,6 +1,8 @@
 from pathlib import Path
 import sys 
 from services.excel_reader import leer_excel
+from services.pdf_reader import leer_constancia_sat
+
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
 
@@ -8,7 +10,7 @@ INPUT_FOLDER = Path("input")
 REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf", "FOR_28.xlsx", 
                   "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
-
+RUTA_CONSTANCIA = Path('input/CONSTANCIA_SITUACION_FISCAL.pdf')
 
 # Funciones encargadas de validación de los documentos y carpetas
 def verificacion_carpeta(directorio):
@@ -37,9 +39,12 @@ def main():
         file_path = Path(INPUT_FOLDER/file)
         verificacion_documento(file_path)
     
+
+
     empresa_a_facturar = leer_excel(RUTA_EXCEL)
     print(f'Empresa a facturar : "{empresa_a_facturar}"')
-    
+
+
     #Creando el objeto empresa
 
     empresa = Empresa(
