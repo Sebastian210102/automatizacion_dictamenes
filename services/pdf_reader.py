@@ -2,7 +2,7 @@ import pdfplumber
 import sys
 from pathlib import Path
 
-RUTA_CONSTANCIA = Path('../input/CONSTANCIA_SITUACION_FISCAL.pdf')
+
 
 
 
@@ -35,16 +35,12 @@ def leer_constancia_sat(ruta_pdf: Path) -> str:
         print("No se pudo obtener razón social del SAT")
 
 
-    #Contricción del nombre final 
-    if regimen_capital:
-        nombre_final = f"{razon_social}, {regimen_capital}"
-    else:
-        nombre_final = razon_social
+
 
     return razon_social, regimen_capital
 
 
-razon_social, regimen_capital = leer_constancia_sat(RUTA_CONSTANCIA)
+
 
 def normalizar_nombre_empresa(razon_social: str, regimen_raw: str) -> str:
     # Separar palabras del nombre (heurística simple)
@@ -62,4 +58,3 @@ def normalizar_nombre_empresa(razon_social: str, regimen_raw: str) -> str:
 
 
 
-print(normalizar_nombre_empresa(razon_social, regimen_capital))

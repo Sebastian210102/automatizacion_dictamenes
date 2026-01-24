@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys 
 from services.excel_reader import leer_excel
-from services.pdf_reader import leer_constancia_sat
+from services.pdf_reader import leer_constancia_sat, normalizar_nombre_empresa
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
@@ -11,7 +11,6 @@ REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf",
                   "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
 RUTA_CONSTANCIA = Path('input/CONSTANCIA_SITUACION_FISCAL.pdf')
-
 # Funciones encargadas de validación de los documentos y carpetas
 def verificacion_carpeta(directorio):
 
@@ -33,6 +32,7 @@ def verificacion_documento(documento):
 
 def main():
 
+    # VERIFICACION DE LOS ARCHIVOS
     verificacion_carpeta(INPUT_FOLDER)
 
     for file in REQUIRED_FILES:
@@ -41,15 +41,23 @@ def main():
     
 
 
+    #Obtener los datos de la empresa
     empresa_a_facturar = leer_excel(RUTA_EXCEL)
     print(f'Empresa a facturar : "{empresa_a_facturar}"')
+    razon_social, regimen_capital = leer_constancia_sat(RUTA_CONSTANCIA)
+    razon_social_empresa =normalizar_nombre_empresa(razon_social, regimen_capital)
+    if not len(razon_social_empresa) > 3:
+        print("No se registro de menera correcta la razon social")
+        sys.exit(1)
+    
+
 
 
     #Creando el objeto empresa
 
     empresa = Empresa(
-        razon_social_propietario=None, 
-        razon_social_usuario= None, 
+        razon_social_propietario=razon_social_empresa, 
+        razon_social_usuario= razon_social_empresa, 
         rfc= None,
         actividad_economica=None,
         domicilio= None,
@@ -66,13 +74,12 @@ def main():
         warnings= None
         )
     
-    # print(f'''Proyecto creado exitosamente:
-    #     ID : {proyecto.id_proyecto}
-    #     num equipos : {proyecto.numero_equipos}
-    #     empresa : {proyecto.empresa.empresa_a_facturar}
-    #     estado : {proyecto.estado}''')
-
-    
+    print(f'''Proyecto creado exitosamente:
+        ID : {proyecto.id_proyecto}
+        num equipos : {proyecto.numero_equipos}
+        empresa : {proyecto.empresa.empresa_a_facturar}
+        estado : {proyecto.estado}
+        Razon social: {empresa.razon_social_usuario}''')
 
 if __name__ == "__main__":
     main()
