@@ -1,7 +1,10 @@
 from pathlib import Path
 import sys 
+
 from services.excel_reader import leer_excel
 from services.pdf_reader import leer_constancia_sat, normalizar_nombre_empresa
+from services.creacion_carpeta import crer_carpetas
+
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
@@ -11,6 +14,9 @@ REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf",
                   "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
 RUTA_CONSTANCIA = Path('input/CONSTANCIA_SITUACION_FISCAL.pdf')
+BASE_EMPRESA = Path("output/empresas")
+
+
 # Funciones encargadas de validación de los documentos y carpetas
 def verificacion_carpeta(directorio):
 
@@ -46,7 +52,7 @@ def main():
     print(f'Empresa a facturar : "{empresa_a_facturar}"')
     razon_social, regimen_capital = leer_constancia_sat(RUTA_CONSTANCIA)
     razon_social_empresa =normalizar_nombre_empresa(razon_social, regimen_capital)
-    if not len(razon_social_empresa) > 3:
+    if  len(razon_social_empresa) <= 3:
         print("No se registro de menera correcta la razon social")
         sys.exit(1)
     
@@ -65,6 +71,12 @@ def main():
         empresa_a_facturar=empresa_a_facturar
         )
     
+
+    #Cracion de la carpeta
+    ruta_empresa = crer_carpetas(BASE_EMPRESA, empresa.razon_social_usuario)
+
+    print(f'Empresa creada en: {ruta_empresa}')    
+
     #Creando objeto de el proyecto
     proyecto = Proyecto(
         id_proyecto= "1_D",
