@@ -13,7 +13,7 @@ INPUT_FOLDER = Path("input")
 REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf", "FOR_28.xlsx", 
                   "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
-RUTA_CONSTANCIA = Path('input/CONSTANCIA_SITUACION_FISCAL.pdf')
+RUTA_CONSTANCIA = Path("input/CONSTANCIA_SITUACION_FISCAL.pdf")
 BASE_EMPRESA = Path("output/empresas")
 
 
@@ -50,8 +50,8 @@ def main():
     #Obtener los datos de la empresa
     empresa_a_facturar = leer_excel(RUTA_EXCEL)
     print(f'Empresa a facturar : "{empresa_a_facturar}"')
-    razon_social, regimen_capital = leer_constancia_sat(RUTA_CONSTANCIA)
-    razon_social_empresa =normalizar_nombre_empresa(razon_social, regimen_capital)
+    diccionario_datos = leer_constancia_sat(RUTA_CONSTANCIA)
+    razon_social_empresa =normalizar_nombre_empresa(diccionario_datos)
     if  len(razon_social_empresa) <= 3:
         print("No se registro de menera correcta la razon social")
         sys.exit(1)
