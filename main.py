@@ -64,7 +64,7 @@ def main():
     empresa = Empresa(
         razon_social_propietario=razon_social_empresa, 
         razon_social_usuario= razon_social_empresa, 
-        rfc= None,
+        rfc= diccionario_datos["rfc"],
         actividad_economica=None,
         domicilio= None,
         telefono= None,
@@ -91,7 +91,8 @@ def main():
         num equipos : {proyecto.numero_equipos}
         empresa : {proyecto.empresa.empresa_a_facturar}
         estado : {proyecto.estado}
-        Razon social: {empresa.razon_social_usuario}''')
-
+        Razon social: {empresa.razon_social_usuario}
+        RFC : {empresa.rfc}''')
+    
 if __name__ == "__main__":
     main()
