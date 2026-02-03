@@ -4,9 +4,15 @@ from pathlib import Path
 
 
 
+def restricciones(inicio, fin ,texto_completo)-> str : 
+    if inicio in texto_completo:
+        return texto_completo.split(inicio)[1].split(fin)[0].strip()
+    else:
+        print(f"{inicio} no encontrado")
 
 
 def leer_constancia_sat(ruta_pdf: Path) -> str:
+
     if not ruta_pdf.exists():
         print("No se encontró la constancia SAT")
         sys.exit(1)
@@ -17,6 +23,9 @@ def leer_constancia_sat(ruta_pdf: Path) -> str:
         "actividad_economica" : None
     }
     texto_completo = ""
+    RAZON_SOCIAL = None
+    REGIMEN_CAPITAL = None
+    RFC = None
 
     with pdfplumber.open(ruta_pdf) as pdf:
         for pagina in pdf.pages:
@@ -26,25 +35,33 @@ def leer_constancia_sat(ruta_pdf: Path) -> str:
 
 
     texto_completo = texto_completo.replace("\n", "")
-    razon_social = None
-    regimen_capital = None
-    if "Denominación/RazónSocial" in texto_completo : 
-        razon_social = texto_completo.split("Denominación/RazónSocial:"
-                                            )[1].split("RégimenCapital")[0].strip()
-        diccionario_datos["razon_social"] = razon_social
-    if "RégimenCapital" in texto_completo:
-        regimen_capital = texto_completo.split("RégimenCapital:"
-                                               )[1].split("NombreComercial")[0].strip()
-        diccionario_datos["regimen_capital"] = regimen_capital
-    if not razon_social:
-        print("No se pudo obtener razón social del SAT")
+ 
+    # if "RFC" in texto_completo:
+            
+    #     diccionario_datos["rfc"] = rfc
+    
 
-
-
-
-
+    # if "Denominación/RazónSocial" in texto_completo : 
+    #     razon_social = texto_completo.split("Denominación/RazónSocial:"
+    #                                         )[1].split("RégimenCapital")[0].strip()
+    #     diccionario_datos["razon_social"] = razon_social
+    # if "RégimenCapital" in texto_completo:
+    #     regimen_capital = texto_completo.split("RégimenCapital:"
+    #                                            )[1].split("NombreComercial")[0].strip()
+    #     diccionario_datos["regimen_capital"] = regimen_capital
+    # if not razon_social:
+    #     print("No se pudo obtener razón social del SAT")
+    # if not rfc:
+    #     print("No se encontró RFC")
+  
+    RFC = restricciones("RFC: ", "Denominación", texto_completo, )
+    diccionario_datos["rfc"] = RFC
+    RAZON_SOCIAL = restricciones("Denominación/RazónSocial:","RégimenCapital", texto_completo)
+    diccionario_datos["razon_social"] = RAZON_SOCIAL
+    REGIMEN_CAPITAL = restricciones("RégimenCapital:", "NombreComercial", texto_completo)
+    diccionario_datos["regimen_capital"] = REGIMEN_CAPITAL
+    # return diccionario_datos
     return diccionario_datos
-
 
 # print(leer_constancia_sat(Path("../input/CONSTANCIA_SITUACION_FISCAL.pdf")))
 
