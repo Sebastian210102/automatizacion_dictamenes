@@ -4,7 +4,7 @@ import sys
 from services.excel_reader import leer_excel
 from services.pdf_reader import leer_constancia_sat, normalizar_nombre_empresa
 from services.creacion_carpeta import crer_carpetas
-
+from services.write_info import informacion_escrita
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
@@ -56,7 +56,7 @@ def main():
         print("No se registro de menera correcta la razon social")
         sys.exit(1)
     
-
+    diccionario_informacion_escrita = informacion_escrita()
 
 
     #Creando el objeto empresa
@@ -65,9 +65,9 @@ def main():
         razon_social_propietario=razon_social_empresa, 
         razon_social_usuario= razon_social_empresa, 
         rfc= diccionario_datos["rfc"],
-        actividad_economica=None,
-        domicilio= None,
-        telefono= None,
+        actividad_economica=diccionario_informacion_escrita["actividad_economica"],
+        domicilio= diccionario_informacion_escrita["domicilio"],
+        telefono= diccionario_informacion_escrita["telefono"],
         empresa_a_facturar=empresa_a_facturar
         )
     
@@ -81,7 +81,7 @@ def main():
     proyecto = Proyecto(
         id_proyecto= "1_D",
         empresa= empresa,
-        numero_equipos=0,
+        numero_equipos=diccionario_informacion_escrita["numero_equipos"],
         estado="CREADO",
         warnings= None
         )
