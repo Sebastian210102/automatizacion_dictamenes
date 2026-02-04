@@ -13,4 +13,3 @@ def informacion_escrita() -> dict:
     return diccionario_info_escrita
 
 
-print(informacion_escrita())

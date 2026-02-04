@@ -4,7 +4,7 @@ class Empresa:
                  rfc : str, actividad_economica : str, domicilio : str,
                  telefono : str, empresa_a_facturar : str ):
      
-        self.razon_social_usuario = razon_social_propietario
+        self.razon_social_propietario = razon_social_propietario
         self.razon_social_usuario = razon_social_usuario
         self.rfc = rfc
         self.actividad_economica = actividad_economica

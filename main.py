@@ -5,6 +5,7 @@ from services.excel_reader import leer_excel
 from services.pdf_reader import leer_constancia_sat, normalizar_nombre_empresa
 from services.creacion_carpeta import crer_carpetas
 from services.write_info import informacion_escrita
+from services.excel_writer import escribir_excel
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
@@ -15,7 +16,7 @@ REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf",
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
 RUTA_CONSTANCIA = Path("input/CONSTANCIA_SITUACION_FISCAL.pdf")
 BASE_EMPRESA = Path("output/empresas")
-
+RUTA_EXCEL_FINAL = Path("input/EXCEL_FINAL.xlsx")
 
 # Funciones encargadas de validación de los documentos y carpetas
 def verificacion_carpeta(directorio):
@@ -85,6 +86,7 @@ def main():
         estado="CREADO",
         warnings= None
         )
+    escribir_excel(empresa, RUTA_EXCEL_FINAL)
     
     print(f'''Proyecto creado exitosamente:
         ID : {proyecto.id_proyecto}
