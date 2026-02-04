@@ -19,8 +19,7 @@ def leer_constancia_sat(ruta_pdf: Path) -> str:
     diccionario_datos = {
         "razon_social" : None,
         "regimen_capital" : None,
-        "rfc" : None,
-        "actividad_economica" : None
+        "rfc" : None
     }
     texto_completo = ""
     RAZON_SOCIAL = None
@@ -35,25 +34,7 @@ def leer_constancia_sat(ruta_pdf: Path) -> str:
 
 
     texto_completo = texto_completo.replace("\n", "")
- 
-    # if "RFC" in texto_completo:
-            
-    #     diccionario_datos["rfc"] = rfc
-    
-
-    # if "Denominación/RazónSocial" in texto_completo : 
-    #     razon_social = texto_completo.split("Denominación/RazónSocial:"
-    #                                         )[1].split("RégimenCapital")[0].strip()
-    #     diccionario_datos["razon_social"] = razon_social
-    # if "RégimenCapital" in texto_completo:
-    #     regimen_capital = texto_completo.split("RégimenCapital:"
-    #                                            )[1].split("NombreComercial")[0].strip()
-    #     diccionario_datos["regimen_capital"] = regimen_capital
-    # if not razon_social:
-    #     print("No se pudo obtener razón social del SAT")
-    # if not rfc:
-    #     print("No se encontró RFC")
-  
+   
     RFC = restricciones("RFC: ", "Denominación", texto_completo, )
     diccionario_datos["rfc"] = RFC
     RAZON_SOCIAL = restricciones("Denominación/RazónSocial:","RégimenCapital", texto_completo)
