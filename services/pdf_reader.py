@@ -13,7 +13,7 @@ def restricciones(inicio, fin ,texto_completo)-> str :
 
 def leer_constancia_sat(ruta_pdf: Path) -> str:
 
-    if not ruta_pdf.exists():
+    if not ruta_pdf .exists():
         print("No se encontró la constancia SAT")
         sys.exit(1)
     diccionario_datos = {
