@@ -86,7 +86,7 @@ def main():
         estado="CREADO",
         warnings= None
         )
-    escribir_excel(empresa, RUTA_EXCEL_FINAL)
+    escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto)
     
     print(f'''Proyecto creado exitosamente:
         ID : {proyecto.id_proyecto}

@@ -5,6 +5,7 @@ import pytesseract
 import re
 
 PATH = Path("../input/INE_T1.pdf")
+pytesseract.pytesseract.tesseract_cmd = r"D:\Tesseract-OCR\tesseract.exe"
 
 def pdf_a_imagen(path: Path):
     with pdfplumber.open(path) as pdf:

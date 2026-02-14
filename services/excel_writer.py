@@ -1,8 +1,10 @@
 from core.empresa import Empresa
+from core.proyecto import Proyecto
 from pathlib import Path
 from openpyxl import load_workbook
 
-def escribir_excel(empresa : Empresa, ruta_excel: Path):
+
+def escribir_excel(empresa : Empresa, ruta_excel: Path, proyecto : Proyecto):
 
 
     
@@ -18,6 +20,7 @@ def escribir_excel(empresa : Empresa, ruta_excel: Path):
     hoja["B7"] = empresa.domicilio
     hoja["B11"] = empresa.telefono
     hoja["B12"] = empresa.empresa_a_facturar
+    hoja["B13"] = proyecto.numero_equipos
     hoja["B14"] = empresa.actividad_economica
 
     excel.save(ruta_excel)
