@@ -4,15 +4,15 @@ import sys
 
 
 
-def leer_excel(ruta_excel : Path) -> str:
+def leer_excel(ruta_excel : Path, celda : str) -> str:
     excel = load_workbook(filename = ruta_excel)
     hoja = excel.active
 
     
-    empresa_a_facturar = hoja['C14'].value
+    informacion = hoja[celda].value
     
-    if empresa_a_facturar is None:
-        print("El valor en celda es vacio")
+    if informacion is None:
+        print(f"El valor en celda {celda} es vacio en {ruta_excel}")
         sys.exit(1)
     
 

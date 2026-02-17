@@ -9,6 +9,7 @@ from services.excel_writer import escribir_excel
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
+from core.persona import Persona
 
 INPUT_FOLDER = Path("input")
 REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf", "FOR_28.xlsx", 
@@ -49,7 +50,7 @@ def main():
 
 
     #Obtener los datos de la empresa
-    empresa_a_facturar = leer_excel(RUTA_EXCEL)
+    empresa_a_facturar = leer_excel(RUTA_EXCEL,'C14')
     print(f'Empresa a facturar : "{empresa_a_facturar}"')
     diccionario_datos = leer_constancia_sat(RUTA_CONSTANCIA)
     razon_social_empresa =normalizar_nombre_empresa(diccionario_datos)
@@ -86,8 +87,30 @@ def main():
         estado="CREADO",
         warnings= None
         )
-    escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto)
+
     
+    #Creación de el objeto persona 
+
+    nombre_atiende_visita = leer_excel(RUTA_EXCEL, "C10")
+    nombre_testigo_1 = leer_excel(RUTA_EXCEL, "C11")
+    nombre_testigo_2 = leer_excel(RUTA_EXCEL, "C12")
+
+
+    Persona_antendio_visita = Persona(
+        nombre_completo = nombre_atiende_visita,
+        rol= "Atiende la visita"
+    )
+    Persona_testigo_1 = Persona(
+        nombre_completo= nombre_testigo_1,
+        rol = "Testigo1"
+    )
+    Persona_testigo_2 = Persona(
+        nombre_completo= nombre_testigo_2,
+        rol = "Testigo2"
+    )
+
+    escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto)
+
     print(f'''Proyecto creado exitosamente:
         ID : {proyecto.id_proyecto}
         num equipos : {proyecto.numero_equipos}
