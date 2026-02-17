@@ -6,14 +6,14 @@ from services.pdf_reader import leer_constancia_sat, normalizar_nombre_empresa
 from services.creacion_carpeta import crer_carpetas
 from services.write_info import informacion_escrita
 from services.excel_writer import escribir_excel
+from services.mover_archivos import mover_archivo
 
 from core.empresa import Empresa
 from core.proyecto import Proyecto 
 from core.persona import Persona
 
 INPUT_FOLDER = Path("input")
-REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "INE_T1.pdf", "INE_T2.pdf", "FOR_28.xlsx", 
-                  "INE_REPRESENTANTE.pdf","INE_VISITA.pdf"]
+REQUIRED_FILES = ["CONSTANCIA_SITUACION_FISCAL.pdf", "FOR_28.xlsx"]
 RUTA_EXCEL = Path('input/FOR_28.xlsx')
 RUTA_CONSTANCIA = Path("input/CONSTANCIA_SITUACION_FISCAL.pdf")
 BASE_EMPRESA = Path("output/empresas")
@@ -113,8 +113,16 @@ def main():
         rol = "Representante legal"
     )
 
+
+    #Escribir en excel
     escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto, Persona_antendio_visita, Persona_testigo_1, 
                    Persona_testigo_2, Persona_representante)
+
+
+    #Mover archivos a las carpetas
+
+    mover_archivo(RUTA_CONSTANCIA, f'{ruta_empresa}/B')
+    mover_archivo(RUTA_EXCEL, f'{ruta_empresa}/C')
 
     print(f'''Proyecto creado exitosamente:
         ID : {proyecto.id_proyecto}
