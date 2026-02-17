@@ -91,10 +91,10 @@ def main():
     
     #Creación de el objeto persona 
 
-    nombre_atiende_visita = leer_excel(RUTA_EXCEL, "C10")
-    nombre_testigo_1 = leer_excel(RUTA_EXCEL, "C11")
-    nombre_testigo_2 = leer_excel(RUTA_EXCEL, "C12")
-
+    nombre_atiende_visita = leer_excel(RUTA_EXCEL, "C10").upper()
+    nombre_testigo_1 = leer_excel(RUTA_EXCEL, "C11").upper()
+    nombre_testigo_2 = leer_excel(RUTA_EXCEL, "C12").upper()
+    nombre_representante = leer_excel(RUTA_EXCEL,"C5").upper()
 
     Persona_antendio_visita = Persona(
         nombre_completo = nombre_atiende_visita,
@@ -108,8 +108,13 @@ def main():
         nombre_completo= nombre_testigo_2,
         rol = "Testigo2"
     )
+    Persona_representante = Persona(
+        nombre_completo= nombre_representante,
+        rol = "Representante legal"
+    )
 
-    escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto)
+    escribir_excel(empresa, RUTA_EXCEL_FINAL, proyecto, Persona_antendio_visita, Persona_testigo_1, 
+                   Persona_testigo_2, Persona_representante)
 
     print(f'''Proyecto creado exitosamente:
         ID : {proyecto.id_proyecto}

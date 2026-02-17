@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 
 
 def escribir_excel(empresa : Empresa, ruta_excel: Path, proyecto : Proyecto, persona_atiende : Persona, 
-                   persona_t1 : Persona, persona_t2 : Persona ):
+                   persona_t1 : Persona, persona_t2 : Persona , persona_representante : Persona):
 
 
     
@@ -28,6 +28,7 @@ def escribir_excel(empresa : Empresa, ruta_excel: Path, proyecto : Proyecto, per
     hoja["B8"] = persona_atiende.nombre_completo
     hoja["B9"] = persona_t1.nombre_completo
     hoja["B10"] = persona_t2.nombre_completo
+    hoja["B5"] =persona_representante.nombre_completo
 
     excel.save(ruta_excel)
     
