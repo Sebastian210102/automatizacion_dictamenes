@@ -17,5 +17,5 @@ def leer_excel(ruta_excel : Path, celda : str) -> str:
     
 
 
-    return empresa_a_facturar
+    return informacion
     
