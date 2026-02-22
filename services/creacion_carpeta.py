@@ -1,7 +1,7 @@
 import re
 import unicodedata
 from pathlib import Path
-
+import os
 def normalizar_nombre_carpeta(nombre) -> str:
     #Quitaremos acentos
     nombre = unicodedata.normalize("NFD", nombre)
@@ -29,3 +29,11 @@ def crer_carpetas(base_path : Path,razon_social :str ) -> Path:
         (empresa_path/carpeta).mkdir(exist_ok=True)
 
     return empresa_path
+
+def nombre_excel_empresa(nombre_empresa : str, nombre_actual: str) -> str:
+    nombre_normalizado = normalizar_nombre_carpeta(nombre_empresa)
+    os.rename(nombre_actual, f"{nombre_normalizado}.xlsx")
+    return f"{nombre_normalizado}.xlsx"
+
+
+
