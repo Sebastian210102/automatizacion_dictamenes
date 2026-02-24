@@ -61,8 +61,8 @@ def main():
         sys.exit(1)
     
     diccionario_informacion_escrita = informacion_escrita()
-
-
+    domicilio = leer_excel(RUTA_EXCEL, "C8")
+    telefono = leer_excel(RUTA_EXCEL, "C13")
     #Creando el objeto empresa
 
     empresa = Empresa(
@@ -70,8 +70,8 @@ def main():
         razon_social_usuario= razon_social_empresa, 
         rfc= diccionario_datos["rfc"],
         actividad_economica=diccionario_informacion_escrita["actividad_economica"],
-        domicilio= diccionario_informacion_escrita["domicilio"],
-        telefono= diccionario_informacion_escrita["telefono"],
+        domicilio= domicilio,
+        telefono= telefono,
         empresa_a_facturar=empresa_a_facturar
         )
     
