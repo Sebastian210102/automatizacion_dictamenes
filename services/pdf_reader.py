@@ -52,11 +52,52 @@ def normalizar_nombre_empresa(diccionario_datos : dict) -> str:
 
     # Mapeo explícito de regímenes
     MAPEO_REGIMEN = {
-        "SOCIEDADDERESPONSABILIDADLIMITADADECAPITALVARIABLE": "S. DE R.L. DE C.V.",
-        "SOCIEDADANONIMAPROMOTORADEINVERSIONDECAPITALVARIABLE": "S.A.P.I. DE C.V.",
-        "SOCIEDADANONIMADECAPITALVARIABLE": "S.A. DE C.V."
-    }
 
+        # Sociedad Anónima
+        "SOCIEDADANONIMADECAPITALVARIABLE": "S.A. DE C.V.",
+        "SOCIEDADANONIMA": "S.A.",
+        
+        # Sociedad Anónima Promotora de Inversión
+        "SOCIEDADANONIMAPROMOTORADEINVERSIONDECAPITALVARIABLE": "S.A.P.I. DE C.V.",
+        "SOCIEDADANONIMAPROMOTORADEINVERSION": "S.A.P.I.",
+        
+        # Sociedad de Responsabilidad Limitada
+        "SOCIEDADDERESPONSABILIDADLIMITADADECAPITALVARIABLE": "S. DE R.L. DE C.V.",
+        "SOCIEDADDERESPONSABILIDADLIMITADA": "S. DE R.L.",
+        
+        # Sociedad por Acciones Simplificada
+        "SOCIEDADPORACCIONESSIMPLIFICADA": "S.A.S.",
+        
+        # Sociedad en Nombre Colectivo
+        "SOCIEDADENNOMBRECOLECTIVO": "S. EN N.C.",
+        
+        # Sociedad en Comandita Simple
+        "SOCIEDADENCOMANDITASIMPLE": "S. EN C.",
+        
+        # Sociedad en Comandita por Acciones
+        "SOCIEDADENCOMANDITAPORACCIONES": "S. EN C. POR A.",
+        
+        # Sociedad Cooperativa
+        "SOCIEDADCOOPERATIVADECAPITALVARIABLE": "S.C. DE C.V.",
+        "SOCIEDADCOOPERATIVA": "S.C.",
+        
+        # Asociación Civil
+        "ASOCIACIONCIVIL": "A.C.",
+        
+        # Sociedad Civil
+        "SOCIEDADCIVIL": "S.C.",
+        
+        # Instituciones financieras
+        "SOCIEDADFINANCIERADEOBJETOMULTIPLE": "SOFOM",
+        "SOCIEDADFINANCIERADEOBJETOMULTIPLEREGULADA": "SOFOM E.R.",
+        "SOCIEDADFINANCIERADEOBJETOMULTIPLENO REGULADA": "SOFOM E.N.R.",
+        
+        # Institución de Banca Múltiple
+        "INSTITUCIONDEBANCAMULTIPLE": "I.B.M.",
+        
+        # Institución de Seguros
+        "INSTITUCIONDESEGUROS": "S.A."
+    }
     regimen = MAPEO_REGIMEN.get(diccionario_datos["regimen_capital"], diccionario_datos["regimen_capital"])
 
     return f"{nombre}, {regimen}"
