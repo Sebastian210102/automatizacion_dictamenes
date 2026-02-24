@@ -52,7 +52,9 @@ def normalizar_nombre_empresa(diccionario_datos : dict) -> str:
 
     # Mapeo explícito de regímenes
     MAPEO_REGIMEN = {
-        "SOCIEDADDERESPONSABILIDADLIMITADADECAPITALVARIABLE": "S. DE R.L. DE C.V."
+        "SOCIEDADDERESPONSABILIDADLIMITADADECAPITALVARIABLE": "S. DE R.L. DE C.V.",
+        "SOCIEDADANONIMAPROMOTORADEINVERSIONDECAPITALVARIABLE": "S.A.P.I. DE C.V.",
+        "SOCIEDADANONIMADECAPITALVARIABLE": "S.A. DE C.V."
     }
 
     regimen = MAPEO_REGIMEN.get(diccionario_datos["regimen_capital"], diccionario_datos["regimen_capital"])
