@@ -88,7 +88,7 @@ def main():
         )
 
     #Cracion de la carpeta
-    ruta_empresa , tipo_tanque = crer_carpetas(BASE_EMPRESA, empresa.razon_social_usuario, proyecto)
+    ruta_empresa , nombre_carpeta = crer_carpetas(BASE_EMPRESA, empresa.razon_social_usuario, proyecto)
 
     print(f'Empresa creada en: {ruta_empresa}')    
     #Creación de el objeto persona 
@@ -125,8 +125,8 @@ def main():
 
     mover_archivo(RUTA_CONSTANCIA, f'{ruta_empresa}/B')
     mover_archivo(RUTA_EXCEL, f'{ruta_empresa}/C')
-    nombre_excel = nombre_excel_empresa(f"{empresa.razon_social_usuario}", RUTA_EXCEL_FINAL)
-    mover_archivo(nombre_excel, f'{ruta_empresa}/A')
+    nombre_excel = nombre_excel_empresa(f"{nombre_carpeta}", RUTA_EXCEL_FINAL)
+    mover_archivo(f'{nombre_excel}', f'{ruta_empresa}/A')
 
 
 
