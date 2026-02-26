@@ -76,10 +76,7 @@ def main():
         )
     
 
-    #Cracion de la carpeta
-    ruta_empresa = crer_carpetas(BASE_EMPRESA, empresa.razon_social_usuario)
 
-    print(f'Empresa creada en: {ruta_empresa}')    
 
     #Creando objeto de el proyecto
     proyecto = Proyecto(
@@ -90,7 +87,10 @@ def main():
         warnings= None
         )
 
-    
+    #Cracion de la carpeta
+    ruta_empresa , tipo_tanque = crer_carpetas(BASE_EMPRESA, empresa.razon_social_usuario, proyecto)
+
+    print(f'Empresa creada en: {ruta_empresa}')    
     #Creación de el objeto persona 
 
     nombre_atiende_visita = leer_excel(RUTA_EXCEL, "C10").upper()
@@ -127,6 +127,7 @@ def main():
     mover_archivo(RUTA_EXCEL, f'{ruta_empresa}/C')
     nombre_excel = nombre_excel_empresa(f"{empresa.razon_social_usuario}", RUTA_EXCEL_FINAL)
     mover_archivo(nombre_excel, f'{ruta_empresa}/A')
+
 
 
     print(f'''Proyecto creado exitosamente:
